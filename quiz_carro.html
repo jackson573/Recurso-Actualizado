@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz sobre Carro Controlado por Bluetooth</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      color: #2c3e50;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2c3e50;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: #34495e;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    #feedback {
+      font-weight: bold;
+      margin-top: 1.5em;
+      font-size: 1.2rem;
+      color: #27ae60;
+    }
+
+    .question-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .question-container:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+  <h2>Quiz sobre el Ensamblaje del Carro Controlado por Bluetooth</h2>
+
+  <div class="question-container">
+    <h3>1. El carro controlado por Bluetooth puede conectarse sin necesidad de cables.</h3>
+    <label>
+      <input type="radio" name="q1" value="true"> Verdadero
+    </label>
+    <label>
+      <input type="radio" name="q1" value="false"> Falso
+    </label>
+  </div>
+
+  <div class="question-container">
+    <h3>2. ¿Cuál es el primer paso al ensamblar el auto?</h3>
+    <label>
+      <input type="radio" name="q2" value="1"> Colocar la batería
+    </label>
+    <label>
+      <input type="radio" name="q2" value="2"> Instalar los motores
+    </label>
+    <label>
+      <input type="radio" name="q2" value="3"> Armar la estructura del chasis
+    </label>
+  </div>
+
+  <div class="question-container">
+    <h3>3. ¿Cuántos motores se necesitan para un carro con tracción en las cuatro ruedas?</h3>
+    <label>
+      <input type="radio" name="q3" value="2"> Dos motores
+    </label>
+    <label>
+      <input type="radio" name="q3" value="4"> Cuatro motores
+    </label>
+    <label>
+      <input type="radio" name="q3" value="1"> Un motor
+    </label>
+  </div>
+
+  <div class="question-container">
+    <h3>4. ¿Qué componente debe programarse primero en el sistema del carro?</h3>
+    <label>
+      <input type="radio" name="q4" value="1"> Sensores
+    </label>
+    <label>
+      <input type="radio" name="q4" value="2"> Controlador Bluetooth
+    </label>
+    <label>
+      <input type="radio" name="q4" value="3"> Las ruedas
+    </label>
+  </div>
+
+  <div class="question-container">
+    <h3>5. ¿Cuál es el componente clave para alimentar el sistema del carro?</h3>
+    <label>
+      <input type="radio" name="q5" value="1"> Placa de Arduino
+    </label>
+    <label>
+      <input type="radio" name="q5" value="2"> Batería
+    </label>
+    <label>
+      <input type="radio" name="q5" value="3"> Controlador Bluetooth
+    </label>
+  </div>
+
+  <div class="question-container">
+    <h3>6. ¿Cuál es el último paso antes de poner en marcha el carro?</h3>
+    <label>
+      <input type="radio" name="q6" value="1"> Revisar conexiones
+    </label>
+    <label>
+      <input type="radio" name="q6" value="2"> Activar el Bluetooth
+    </label>
+    <label>
+      <input type="radio" name="q6" value="3"> Subir la programación al microcontrolador
+    </label>
+  </div>
+
+  <br><br>
+  <button onclick="checkAnswers()">Enviar Respuestas</button>
+  <button onclick="reiniciarQuiz()">Reiniciar Quiz</button>
+
+  <p id="feedback"></p>
+
+  <script>
+    function checkAnswers() {
+      const respuestasCorrectas = {
+        q1: "true",
+        q2: "3",
+        q3: "1",
+        q4: "2",
+        q5: "2",
+        q6: "3"
+      };
+      
+      let puntos = 0;
+      const feedback = document.getElementById('feedback');
+
+      for (const [pregunta, respuestaCorrecta] of Object.entries(respuestasCorrectas)) {
+        const respuestaSeleccionada = document.querySelector(`input[name="${pregunta}"]:checked`);
+        
+        if (respuestaSeleccionada && respuestaSeleccionada.value === respuestaCorrecta) {
+          puntos++;
+        }
+      }
+
+      feedback.innerText = `¡Has obtenido ${puntos} de 6 puntos!`;
+      feedback.style.color = puntos === 6 ? '#27ae60' : '#e74c3c';
+    }
+
+    function reiniciarQuiz() {
+      const radios = document.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => radio.checked = false);
+      document.getElementById('feedback').innerText = '';
+    }
+    
+  </script>
+</body>
+</html>
